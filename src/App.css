@@ -46,6 +46,10 @@ header a {
 
 /* style this for sdl 12/08/24 */
 .workout-details {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   border: 3px solid var(--primary);
   background-color: #333;
   border-radius: 8px;
@@ -54,8 +58,31 @@ header a {
   position: relative;
   box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
 
-  span {
+  /* delete and edit buttons */
+  #handle-buttons {
+    gap: 10px;
     cursor: pointer;
+
+    .trash-icon, .edit-icon {
+      background-color: var(--primary);
+      padding: 7px;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+      font-size: 1.2em;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    .trash-icon:hover {
+      background-color: white;
+      color: var(--primary);
+      transition: all 0.3s ease;
+    }
+
+    .edit-icon:hover {
+      background-color: white;
+      color: var(--primary);
+      transition: all 0.3s ease;
+    }
   }
 }
 

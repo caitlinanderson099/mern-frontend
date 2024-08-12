@@ -33,12 +33,16 @@ const WorkoutDetails = ({workout}) => {
 
   return (
     <div className='workout-details'>
+      <div className='workout-content'> 
         <h4> {workout.title} </h4>
         <p> <strong> Load (kg): </strong> {workout.load} </p>
         <p> <strong> Reps (kg): </strong> {workout.reps} </p>
         <p> {formatDistanceToNow(new Date(workout.createdAt), {includeSeconds: true}, {addSuffix: true})} </p>
-        <span onClick={handleDelete}> <TrashFill/> </span>
-        <span onClick={handleEdit}> <PencilSquare/> </span> 
+      </div>
+        <div id='handle-buttons'> 
+          <span onClick={handleDelete}> <TrashFill className='trash-icon'/> </span>
+          <span onClick={handleEdit}> <PencilSquare className='edit-icon'/> </span> 
+        </div>
     </div>
   )
 }
