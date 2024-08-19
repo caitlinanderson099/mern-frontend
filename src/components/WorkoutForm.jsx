@@ -5,24 +5,42 @@ import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
 const baseURL = import.meta.env.VITE_API_BASE_URL
 
 const WorkoutForm = () => {
-    //  dispatch for useContext
+    //  Dispatch For useContext
     const {dispatch} = useWorkoutsContext();
-    //  input state variables:
+    //  Input State Variables:
     const [title, setTitle] = useState('');
     const [load, setLoad] = useState('');
     const [reps, setReps] = useState('');
     const [error, setError] = useState(null);
+    // Set Up State For Image
+    const [image, setImage] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // set up object to send to the database
-        const workout = {title, load, reps}
+        const user = JSON.parse(localStorage.getItem('user'));
+        const user_id = user.email
+
+        // Set Up Object To Send To The Database
+        // const workout = {title, load, reps, user_id}
+
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('load', load);
+        formData.append('reps', reps);
+        formData.append('user_id', user_id);
+        formData.append('image', image);
+
 
         // HTTP Request:
         try {
-            const response = await axios.post(`${baseURL}/api/workouts/`, workout, {
+            // const response = await axios.post(`${baseURL}/api/workouts/`, workout, {
+            //     headers : {
+            //         'Content-Type': 'application/json'
+            //     }
+            // });
+            const response = await axios.post(`${baseURL}/api/workouts/`, formData, {
                 headers : {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'multipart/form-data'
                 }
             });
             setTitle('');
@@ -60,6 +78,8 @@ const WorkoutForm = () => {
             onChange={(e) => setReps(e.target.value)}
             value={reps}
         />
+        <label> Upload Image: </label>
+        <input type="file" accept='image/*' onChange={(e) => setImage(e.target.files[0])}/>
 
         <button>Add Workout</button>
         {error && <div className='error'>{error}</div>}
