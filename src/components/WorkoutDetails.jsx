@@ -148,10 +148,15 @@ const WorkoutDetails = ({workout}) => {
         <div className='workout-content'>
           <div className='top-details'>
             <h4> {workout.title} </h4>
-            <div className='icon-cont'>
-              <span onClick={handleDelete}> <TrashFill className='icons'/> </span>
-              <span onClick={handleEdit}> <PencilSquare className='icons'/> </span>
-            </div>
+            {workout.user_id === user_id && (
+              <>
+                <div className='icon-cont'>
+                <span onClick={handleDelete}> <TrashFill className='icons'/> </span>
+                <span onClick={handleEdit}> <PencilSquare className='icons'/> </span>
+                </div>
+              </>
+            )}
+
           </div> 
           {workout.image && (
             <img className='workout-image' src={`${baseURL}/public/uploads/${workout.image}`} alt={workout.title}/>
